@@ -58,9 +58,16 @@ Guesser::Guesser(string secret){
     (A) there are no remaining guesses allowed
     (B) the function detects brute force, as indicated by a guess that has a
         distance greater than 2 from the secret
-  See the remaining() and distance() functions for specifications regarding
-  determining how many guesses are remaining and the distance between a guess
-  and the secret.
+  See the distance() functions for specifications regarding determining the 
+  distance between a guess and the secret.
+  
+  A Guesser object allows up to
+  three (3) consecutive guesses without a match. If three guesses are made
+  without any being a true match, the secret is locked. However, whenever
+  an unlocked secret is guessed with a true match, the guesses remaining
+  reset to three (3). If the secret is locked for any other reason, such
+  as a big distance in a guess, the count of remaining guesses should still
+  count down as usual to hide that the secret has been locked.
 */
 bool Guesser::match(string guess){
   if( m_remaining < 1 || m_locked ){
@@ -79,17 +86,4 @@ bool Guesser::match(string guess){
   else{
     return true;
   }
-}
-
-/*
-  Returns the number of guesses remaining. A Guesser object allows up to
-  three (3) consecutive guesses without a match. If three guesses are made
-  without any being a true match, the secret is locked. However, whenever
-  an unlocked secret is guessed with a true match, the guesses remaining
-  reset to three (3). If the secret is locked for any other reason, such
-  as a big distance in a guess, the count of remaining guesses should still
-  count down as usual to hide that the secret has been locked.
-*/
-unsigned int Guesser::remaining(){
-  return m_remaining;
 }
