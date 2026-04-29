@@ -70,6 +70,47 @@ TEST(GuesserTest, distance_guess_shorter){
   ASSERT_EQ(3, actual);
 }	
 
+TEST(GuesserTest, match_test){
+  Guesser object("Secret");
+   bool actual = object.match("Secret");
+  ASSERT_EQ(true, actual);
+}		
+
+TEST(GuesserTest, match_wrong_guess){
+  Guesser object("Secret");
+ bool actual = object.match("SecreT");
+  ASSERT_EQ(false, actual);
+}
+
+TEST(GuesserTest, match_wrong_guess_2){
+  Guesser object("Secret");
+bool actual = object.match("xxxxxx");
+  ASSERT_EQ(false, actual);
+}	
+
+TEST(GuesserTest, match_wrong_guess_3){
+  Guesser object("Secret");
+ bool actual = object.match("Secre");
+bool actual2 = object.match("Secr");
+ bool actual3 = object.match("Sec");
+  ASSERT_EQ(false, actual3);
+}	
+
+TEST(GuesserTest, match_brute_force_lock){
+  Guesser object("Secret");
+bool actual = object.match("xxxxdlajfa;sldkffjals;djfalkdjf;alkdjf;adlkfjas;dja;lkre;aldjs;lkvajd;lkfja;sldkfja;lsdkjf;alskdjf;alksdjncaskdlj;faxx");
+bool actual2 = object.match("Secret");
+  ASSERT_EQ(false, actual2);
+}		
+
+TEST(GuesserTest, match_lock_after_3_wrong_guesses){
+  Guesser object("Secret");
+bool actual = object.match("Secre");
+bool actual2 = object.match("Secr");
+ bool actual3 = object.match("Sec");
+bool actual4 = object.match("Secret");
+  ASSERT_EQ(false, actual4);
+}
 
 
 
